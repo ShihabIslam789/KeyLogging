@@ -103,3 +103,12 @@ def send_logs():
 				print('attachment')
 
 				filename = delete_file[0].split('/')[2]
+
+                part = MIMEBase('application','octect-stream')
+				part.set_payload((attachment).read())
+				encoders.encode_base64(part)
+				part.add_header('content-disposition','attachment;filename='+str(filename))
+				msg.attach(part)
+
+				text = msg.as_string()
+				print('test msg.as_string')
